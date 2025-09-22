@@ -227,7 +227,7 @@ body.loaded {
 /* Hero Section */
 .hero {
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.1)), 
-                url('Images/background.jpeg');
+                url('Images/background.JPEG');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -876,7 +876,7 @@ body.loaded {
 .menu-content, .about-content {
     padding: 60px 0;
     background: linear-gradient(135deg, rgba(31, 31, 31, 0.7), rgba(45, 27, 27, 0.7)), 
-                url('Images/background.jpeg');
+                url('Images/background.JPEG');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
