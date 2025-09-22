@@ -844,6 +844,7 @@ body.loaded {
     
     .menu-content, .about-content {
         background-attachment: scroll;
+        background-size: cover;
     }
 }
 
@@ -903,7 +904,7 @@ body.loaded {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: scroll;
+    background-attachment: fixed;
     position: relative;
     overflow: hidden;
 }
