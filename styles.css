@@ -383,13 +383,7 @@ body.loaded {
 }
 
 .features .decorative-elements {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    z-index: 0;
+    display: none;
 }
 
 .features .decorative-elements::before {
@@ -432,6 +426,10 @@ body.loaded {
     z-index: 1;
 }
 
+.features .container {
+    text-align: center;
+}
+
 .features h2 {
     text-align: center;
     font-size: 2.5rem;
@@ -439,16 +437,33 @@ body.loaded {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 3rem;
+    margin: 0 auto 3rem auto;
     font-weight: bold;
     text-shadow: 0 0 15px rgba(252, 235, 159, 0.5);
     position: relative;
-    z-index: 2;
+    z-index: 10;
     border-bottom: 3px solid;
     border-image: var(--gold-gradient) 1;
-    padding-bottom: 1rem;
+    padding: 1rem 0;
     display: inline-block;
     width: auto;
+}
+
+.features h2::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -40px;
+    right: -40px;
+    bottom: -20px;
+    background: radial-gradient(ellipse at center, 
+        rgba(0, 0, 0, 0.2) 0%, 
+        rgba(0, 0, 0, 0.1) 50%, 
+        rgba(0, 0, 0, 0.05) 80%, 
+        transparent 100%);
+    z-index: -1;
+    filter: blur(5px);
+    opacity: 0.6;
 }
 
 .features-grid {
