@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a1a">
+    <title>About Us - Hot-Pot World</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        html, body { background-color: #1a1a1a !important; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" class="nav-logo-link">
+                    <h2>Hot-Pot World</h2>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link"><span>Strona Główna</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="menu.html" class="nav-link"><span>Menu</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link active"><span>O Nas</span></a>
+                </li>
+            </ul>
+            <div class="language-switcher">
+                <a class="lang-btn" title="Polski">
+                    <img src="https://flagcdn.com/w20/pl.png" alt="Polish flag" class="flag-icon">
+                </a>
+                <a class="lang-btn" title="English">
+                    <img src="https://flagcdn.com/w20/gb.png" alt="UK flag" class="flag-icon">
+                </a>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Photo Gallery Section -->
+        <section class="about-gallery">
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-slides">
+                        <div class="carousel-slide active">
+                            <img src="Carousel/hot-pot.jpg" alt="Hot Pot Experience">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="Carousel/image.jpg" alt="Restaurant Interior">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="Carousel/images.jpg" alt="Dining Experience">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="Carousel/l-intro-1700594545.jpg" alt="Hot Pot Preparation">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="Carousel/so_hot_pinterest-1-edited.jpg" alt="Authentic Hot Pot">
+                        </div>
+                    </div>
+                    <button class="carousel-btn carousel-prev" aria-label="Previous image">‹</button>
+                    <button class="carousel-btn carousel-next" aria-label="Next image">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                        <span class="dot" data-slide="3"></span>
+                        <span class="dot" data-slide="4"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-hero">
+            <div class="container">
+                <h1>O Hot-Pot World</h1>
+                <p>Sprowadź autentyczne doświadczenie do swojego stolika</p>
+            </div>
+        </section>
+
+        <section class="about-content">
+            <div class="container">
+                <div class="about-story">
+                    <h2>Nasza historia</h2>
+                    <p>Restauracja założona w 2025 lorem ipsum.</p>
+                    <p>We believe that hot pot is more than just a meal - it's a social experience that brings people together. Our mission is to share this wonderful tradition with our community while maintaining the highest standards of quality and authenticity.</p>
+                </div>
+
+                <div class="about-location">
+                    <h2>Odwiedź nas</h2>
+                    <div class="location-info">
+                        <div class="location-details">
+                            <h3>Lokalizacja</h3>
+                            <p>123 Main Street<br>Downtown District<br>City, State 12345</p>
+                            
+                            <h3>Godziny otwarcia</h3>
+                            <p>Monday - Thursday: 11:00 AM - 10:00 PM<br>
+                            Friday - Saturday: 11:00 AM - 11:00 PM<br>
+                            Sunday: 12:00 PM - 9:00 PM</p>
+                            
+                            <h3>Kontakt</h3>
+                            <p>Phone: (555) 123-4567<br>
+                            Email: info@hotpotworld.com</p>
+                        </div>
+                        <div class="location-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d278.87951934022453!2d18.54068834360119!3d54.51134508509509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spl!2spl!4v1758390028179!5m2!1spl!2spl" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Hot-Pot World. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

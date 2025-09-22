@@ -1,0 +1,72 @@
+Broths 兄弟會 //Main Section
+
+Sizes 尺寸 //Sub-Main Section
+SMALL BROTH 1 PERSON 小湯 18 PLN
+LARGE BROTH 2-6 PEOPLE 大湯 38 PLN
+MAXI BROTH 大湯 48 PLN
+Flavors 口味 //Sub-Main Section
+SPICY BROTH 辣湯
+SPICY-SOUR BROTH 酸辣湯
+MUSHROOM BROTH 蘑菇湯
+TOMATO BROTH 番茄湯
+TOM YUM BROTH 冬蔭功湯
+
+//end of section
+
+Sets 套 // Main Section
+SET - 1 PERSON 單人套餐 120 PLN
+SET FOR TWO 雙人套餐 189 PLN
+
+INGREDIENTS 原料 // Main Section
+
+Seafood 海鮮 //Sub-Main Section
+WHOLE SHRIMP 整蝦 38 PLN
+COCKTAIL SHRIMP 雞尾酒蝦 35 PLN
+FISH SLICES 魚片 28 PLN
+FISH TOFU 魚豆腐 22 PLN
+CRAB STICKS 蟹肉棒 22 PLN
+
+Vegetables //Sub-Main Section
+ENOKI MUSHROOMS 金針菇 22 PLN
+SHIMEJI MUSHROOMS 姬菇 22 PLN
+FRESH SHITAKE 新鮮香菇 22 PLN
+MUN MUSHROOMS (WHITE) 蒙吉（白色）17 PLN
+MUN MUSHROOMS (BLACK) 蒙吉（黑色）15 PLN
+CHINESE CABBAGE 白菜 15 PLN
+CORN 玉米 22 PLN
+CAULIFLOWER 花椰菜 22 PLN
+BAMBOO 竹子 25 PLN
+BEEN SPROUTS 豆芽 16 PLN
+SEAWEED 海藻 18 PLN
+SPINACH 菠菜 25 PLN
+WHITE RADISH 白蘿蔔 16 PLN
+SLICED POTATOES 洋芋片 12 PLN
+CURLY POTATOES 捲曲馬鈴薯 15 PLN
+PAK CHOI 白菜 25 PLN
+
+Meat 肉 //Sub-Main Section
+LAMB 羊肉 46 PLN 
+BEEF 牛肉 43 PLN
+BLACK TRIPE 黑牛肚 48 PLN
+WHITE TRIPE 白肚 38 PLN
+SPICY BEEF 辣牛肉 35 PLN
+PORK LOIN 豬裡肌肉 42 PLN
+BEEF LOIN 西冷牛排 58 PLN
+TOFU 豆腐 //Sub-Main Section
+FRESH TOFU 鮮豆腐 22 PLN
+TOFU SLICES 豆腐條 18 PLN
+FRIED TOFU 炸豆腐 18 PLN
+
+Meatballs 肉丸 //Sub-Main Section
+BEEF MEATBALLS 牛肉丸 36 PLN
+FISH MEATBALLS 魚丸 36 PLN
+
+Noodles 義大利麵 //Sub-Main Section
+WHEAT NOODLES 小麥麵食 20 PLN
+KONJAC NOODLES 蒟蒻意麵 18 PLN
+RICE NOODLES 粽子 24 PLN
+
+//now empty space as if there is a new section but with no name
+SAUCE - 1 PERSON 單人求救 8PLN
+
+
