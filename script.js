@@ -174,100 +174,7 @@ document.querySelectorAll('.btn').forEach(btn => {
     });
 });
 
-// Photo Carousel Functionality - Modern Seamless
-document.addEventListener('DOMContentLoaded', function() {
-    const carousel = document.querySelector('.carousel-slides');
-    const prevBtn = document.querySelector('.carousel-prev');
-    const nextBtn = document.querySelector('.carousel-next');
-    const dots = document.querySelectorAll('.dot');
-    
-    if (!carousel || !prevBtn || !nextBtn || !dots.length) return;
-    
-    let currentSlide = 0;
-    const totalSlides = dots.length;
-    
-    function showSlide(index) {
-        // Update carousel position for full-width slides
-        const translateX = -(index * 100);
-        carousel.style.transform = `translateX(${translateX}%)`;
-        
-        // Update active dot
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-        });
-        
-        currentSlide = index;
-    }
-    
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        showSlide(currentSlide);
-    }
-    
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-        showSlide(currentSlide);
-    }
-    
-    // Event listeners
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
-    
-    // Dot navigation
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => showSlide(index));
-    });
-    
-    // Auto-play carousel with longer interval for better viewing
-    let autoPlayInterval = setInterval(nextSlide, 6000);
-    
-    // Pause auto-play on hover
-    const carouselWrapper = document.querySelector('.carousel-wrapper');
-    if (carouselWrapper) {
-        carouselWrapper.addEventListener('mouseenter', () => {
-            clearInterval(autoPlayInterval);
-        });
-        
-        carouselWrapper.addEventListener('mouseleave', () => {
-            autoPlayInterval = setInterval(nextSlide, 6000);
-        });
-    }
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowLeft') {
-            prevSlide();
-        } else if (e.key === 'ArrowRight') {
-            nextSlide();
-        }
-    });
-    
-    // Touch/swipe support for mobile
-    let startX = 0;
-    let endX = 0;
-    
-    carousel.addEventListener('touchstart', function(e) {
-        startX = e.touches[0].clientX;
-    });
-    
-    carousel.addEventListener('touchend', function(e) {
-        endX = e.changedTouches[0].clientX;
-        handleSwipe();
-    });
-    
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = startX - endX;
-        
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                nextSlide(); // Swipe left - next slide
-            } else {
-                prevSlide(); // Swipe right - previous slide
-            }
-        }
-    }
-});
+// Photo Carousel Functionality - Now handled by dynamic loader below
 
 // Add smooth page transition - prevent white flash and jittering
 (function() {
@@ -658,4 +565,149 @@ document.addEventListener('DOMContentLoaded', function() {
             switchLanguage();
         });
     });
+});
+
+// Dynamic Carousel Loader
+function loadCarouselImages() {
+    const carouselSlides = document.getElementById('carousel-slides');
+    const carouselDots = document.getElementById('carousel-dots');
+    
+    if (!carouselSlides || !carouselDots) return;
+    
+    // List of images in the Carousel folder
+    const images = [
+        'Carousel/IMG_8973.png',
+        'Carousel/IMG_9135.png'
+    ];
+    
+    // Clear existing content
+    carouselSlides.innerHTML = '';
+    carouselDots.innerHTML = '';
+    
+    // Create slides and dots
+    images.forEach((imagePath, index) => {
+        // Create slide
+        const slide = document.createElement('div');
+        slide.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
+        
+        const img = document.createElement('img');
+        img.src = imagePath;
+        img.alt = `Restaurant Image ${index + 1}`;
+        img.loading = 'lazy';
+        
+        slide.appendChild(img);
+        carouselSlides.appendChild(slide);
+        
+        // Create dot
+        const dot = document.createElement('span');
+        dot.className = `dot ${index === 0 ? 'active' : ''}`;
+        dot.setAttribute('data-slide', index);
+        carouselDots.appendChild(dot);
+    });
+    
+    // Reinitialize carousel functionality
+    initializeCarousel();
+}
+
+// Initialize carousel functionality
+function initializeCarousel() {
+    const carousel = document.querySelector('.carousel-slides');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    
+    if (!carousel || !slides.length) return;
+    
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+    
+    function showSlide(index) {
+        // Update carousel position for full-width slides
+        const translateX = -(index * 100);
+        carousel.style.transform = `translateX(${translateX}%)`;
+        
+        // Update active dot
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+        
+        currentSlide = index;
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+    }
+    
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(currentSlide);
+    }
+    
+    // Event listeners
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentSlide = index;
+            showSlide(currentSlide);
+        });
+    });
+    
+    // Auto-play carousel with longer interval for better viewing
+    let autoPlayInterval = setInterval(nextSlide, 6000);
+    
+    // Pause auto-play on hover
+    const carouselWrapper = document.querySelector('.carousel-wrapper');
+    if (carouselWrapper) {
+        carouselWrapper.addEventListener('mouseenter', () => {
+            clearInterval(autoPlayInterval);
+        });
+        
+        carouselWrapper.addEventListener('mouseleave', () => {
+            autoPlayInterval = setInterval(nextSlide, 6000);
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+        }
+    });
+    
+    // Touch/swipe support for mobile
+    let startX = 0;
+    let endX = 0;
+    
+    carousel.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+    });
+    
+    carousel.addEventListener('touchend', function(e) {
+        endX = e.changedTouches[0].clientX;
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = startX - endX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                nextSlide(); // Swipe left - next slide
+            } else {
+                prevSlide(); // Swipe right - previous slide
+            }
+        }
+    }
+}
+
+// Load carousel when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    loadCarouselImages();
 });

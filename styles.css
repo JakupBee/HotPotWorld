@@ -88,7 +88,9 @@ body.loaded {
 .nav-logo-link {
     text-decoration: none;
     color: inherit;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .nav-logo-link:hover {
@@ -103,12 +105,25 @@ body.loaded {
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     margin: 0;
-    transition: none;
+    white-space: nowrap;
+    transition: font-size 0.3s ease;
 }
 
 .nav-logo h2:hover {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     transform: none;
+}
+
+.nav-logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: transform 0.2s ease;
+}
+
+.nav-logo-img:hover {
+    transform: scale(1.05);
 }
 
 .nav-menu {
@@ -353,6 +368,19 @@ body.loaded {
     margin-top: -50px;
     z-index: 1;
     overflow: hidden;
+}
+
+.features .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('Images/CardBackground.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: 0;
 }
 
 .features::after {
@@ -659,6 +687,17 @@ body.loaded {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    /* Medium screens - slightly smaller navbar */
+    .nav-logo h2 {
+        font-size: 1.6rem;
+    }
+
+    .nav-logo-img {
+        height: 36px;
+    }
+}
+
 @media (max-width: 768px) {
     /* Prevent horizontal scrolling */
     html, body {
@@ -693,11 +732,21 @@ body.loaded {
 
     .language-switcher {
         margin-left: 0.5rem;
+        order: 3; /* Ensure language switcher comes after hamburger */
     }
 
     .lang-btn {
         width: 35px;
         height: 26px;
+    }
+
+    /* Responsive navbar text */
+    .nav-logo h2 {
+        font-size: 1.4rem;
+    }
+
+    .nav-logo-img {
+        height: 32px;
     }
 
     .flag-icon {
@@ -1117,11 +1166,11 @@ body.loaded {
 }
 
 /* About Page Styles */
-.about-story, .about-gallery, .about-location {
+.about-story, .about-gallery, .about-location, .about-reservations {
     margin-bottom: 4rem;
 }
 
-.about-story h2, .about-gallery h2, .about-location h2 {
+.about-story h2, .about-gallery h2, .about-location h2, .about-reservations h2 {
     font-family: 'Chowfun', 'Arial', sans-serif;
     color: var(--primary-red);
     font-size: 2.2rem;
@@ -1135,7 +1184,7 @@ body.loaded {
     text-align: center;
 }
 
-.about-story p {
+.about-story p, .about-reservations p {
     font-size: 1.1rem;
     line-height: 1.8;
     color: #d1d5db;
@@ -1370,6 +1419,41 @@ body.loaded {
 
     .nav-container {
         padding: 0 15px;
+        flex-wrap: nowrap;
+        gap: 0.5rem;
+    }
+
+    .nav-logo {
+        flex-shrink: 0;
+        min-width: 0; /* Allow text to shrink */
+    }
+
+    .language-switcher {
+        flex-shrink: 0;
+        order: 3;
+    }
+
+    .hamburger {
+        flex-shrink: 0;
+        order: 4;
+    }
+
+    /* Even smaller navbar text for very small screens */
+    .nav-logo h2 {
+        font-size: 1.1rem;
+    }
+
+    .nav-logo-img {
+        height: 28px;
+    }
+
+    .language-switcher {
+        margin-left: 0.3rem;
+    }
+
+    .lang-btn {
+        width: 30px;
+        height: 22px;
     }
 
     .menu-hero h1, .about-hero h1 {
