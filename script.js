@@ -346,10 +346,12 @@ async function loadMenuData() {
     
     console.log('Current path:', currentPath);
     console.log('CSV path:', csvPath);
+    console.log('Full CSV URL:', new URL(csvPath, window.location.origin).href);
     
     // Always try to load the actual CSV file first
     try {
         console.log('Attempting to load live CSV file...');
+        console.log('Fetching from:', csvPath);
         const response = await fetch(csvPath);
         
         if (!response.ok) {
@@ -377,11 +379,18 @@ async function loadMenuData() {
         for (const fallbackPath of fallbackPaths) {
             try {
                 console.log('Trying fallback path:', fallbackPath);
+                console.log('Full fallback URL:', new URL(fallbackPath, window.location.origin).href);
                 const response = await fetch(fallbackPath);
+                console.log('Fallback response status:', response.status);
+                console.log('Fallback response headers:', Object.fromEntries(response.headers.entries()));
+                
                 if (response.ok) {
                     const csvText = await response.text();
                     console.log('Fallback CSV loaded successfully from:', fallbackPath);
+                    console.log('CSV content length:', csvText.length);
                     return parseCSV(csvText);
+                } else {
+                    console.log('Fallback path returned error status:', response.status, response.statusText);
                 }
             } catch (fallbackError) {
                 console.log('Fallback path failed:', fallbackPath, fallbackError.message);
@@ -632,6 +641,13 @@ function showMenuError(errorMessage = null) {
 document.addEventListener('DOMContentLoaded', async function() {
     // Check if we're on a menu page
     if (document.querySelector('.menu-content')) {
+        // Add diagnostic information
+        console.log('=== MENU LOADING DIAGNOSTICS ===');
+        console.log('Current domain:', window.location.hostname);
+        console.log('Current protocol:', window.location.protocol);
+        console.log('Current pathname:', window.location.pathname);
+        console.log('User agent:', navigator.userAgent);
+        console.log('================================');
         // Detect language from HTML lang attribute or URL
         const htmlLang = document.documentElement.lang;
         const isPolish = htmlLang === 'pl' || window.location.pathname.includes('_pl');
