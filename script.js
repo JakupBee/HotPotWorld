@@ -524,30 +524,36 @@ document.addEventListener('DOMContentLoaded', async function() {
 // Smart Language Switching
 function switchLanguage() {
     const currentPath = window.location.pathname;
-    const currentFile = currentPath.split('/').pop() || 'index.html';
+    const pathParts = currentPath.split('/').filter(part => part !== '');
+    
+    // Determine if we're in the English folder
+    const isCurrentlyEnglish = pathParts.includes('en');
+    const currentFile = pathParts[pathParts.length - 1] || 'index.html';
     
     // Define language mapping
     const languageMap = {
         // Polish main files to English files
-        'index.html': 'index_en.html',
-        'menu.html': 'menu_en.html',
-        'about.html': 'about_en.html',
-        // English files to Polish main files
-        'index_en.html': 'index.html',
-        'menu_en.html': 'menu.html',
-        'about_en.html': 'about.html'
+        'index.html': 'en/index.html',
+        'menu.html': 'en/menu.html',
+        'about.html': 'en/about.html',
+        // English files to Polish main files (when in en/ folder)
+        'en/index.html': 'index.html',
+        'en/menu.html': 'menu.html',
+        'en/about.html': 'about.html'
     };
     
-    const targetFile = languageMap[currentFile];
+    let targetFile;
     
-    if (targetFile) {
-        // Navigate to the equivalent page in the other language
-        window.location.href = targetFile;
+    if (isCurrentlyEnglish) {
+        // We're in the en/ folder, go to Polish version (up one directory)
+        targetFile = '../' + currentFile;
     } else {
-        // Fallback: if current file is not recognized, go to home
-        const isCurrentlyEnglish = currentFile.includes('_en');
-        window.location.href = isCurrentlyEnglish ? 'index.html' : 'index_en.html';
+        // We're in the root folder, go to English version
+        targetFile = 'en/' + currentFile;
     }
+    
+    // Navigate to the equivalent page in the other language
+    window.location.href = targetFile;
 }
 
 // Add smart language switching to all language buttons
@@ -574,10 +580,14 @@ function loadCarouselImages() {
     
     if (!carouselSlides || !carouselDots) return;
     
+    // Determine the correct path based on current location
+    const isInEnFolder = window.location.pathname.includes('/en/');
+    const carouselPath = isInEnFolder ? '../Carousel/' : 'Carousel/';
+    
     // List of images in the Carousel folder
     const images = [
-        'Carousel/IMG_8973.png',
-        'Carousel/IMG_9135.png'
+        carouselPath + 'IMG_8973.png',
+        carouselPath + 'IMG_9135.png'
     ];
     
     // Clear existing content
