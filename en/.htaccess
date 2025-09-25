@@ -1,0 +1,23 @@
+RewriteEngine On
+
+# Handle folder-based URLs in en/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/?$ $1/index.html [NC,L]
+
+# Handle root en/ directory
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^$ index.html [NC,L]
+
+# Redirect .html URLs to clean URLs
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1/? [NC,L,R=301]
+
+# Handle index files
+DirectoryIndex index.html
+
+# Ensure proper MIME types
+AddType text/html .html
+AddType text/css .css
+AddType application/javascript .js

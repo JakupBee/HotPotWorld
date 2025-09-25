@@ -329,7 +329,7 @@ async function loadMenuData() {
     // Always try to load the actual CSV file first
     try {
         console.log('Attempting to load live CSV file...');
-        const response = await fetch('Menu/HotPot_Menu.csv');
+        const response = await fetch('MenuContent/HotPot_Menu.csv');
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -538,39 +538,40 @@ function switchLanguage() {
     
     if (isCurrentlyEnglish) {
         // We're in the en/ folder, go to Polish version
-        const currentFile = pathParts[pathParts.length - 1] || 'index.html';
-        console.log('English detection - currentFile:', currentFile);
         console.log('English detection - pathParts includes en:', pathParts.includes('en'));
         console.log('English detection - pathParts includes menu:', pathParts.includes('menu'));
         console.log('English detection - pathParts includes about:', pathParts.includes('about'));
         
-        if (currentFile === 'index.html' && pathParts.includes('en') && !pathParts.includes('menu') && !pathParts.includes('about')) {
-            // We're at en/index.html (English home)
-            targetPath = '../index.html';
+        if (pathParts.includes('en') && !pathParts.includes('menu') && !pathParts.includes('about')) {
+            // We're at en/ (English home)
+            targetPath = '../';
             console.log('Detected: English home');
         } else if (pathParts.includes('en') && pathParts.includes('menu')) {
-            // We're at en/menu/index.html
-            targetPath = '../../menu/index.html';
+            // We're at en/menu/
+            targetPath = '../../menu/';
             console.log('Detected: English menu');
         } else if (pathParts.includes('en') && pathParts.includes('about')) {
-            // We're at en/about/index.html
-            targetPath = '../../about/index.html';
+            // We're at en/about/
+            targetPath = '../../about/';
             console.log('Detected: English about');
         }
     } else {
         // We're in the Polish folder, go to English version
-        // Check if we're at the root index.html or in a subfolder
-        const currentFile = pathParts[pathParts.length - 1] || 'index.html';
+        console.log('Polish detection - pathParts includes menu:', pathParts.includes('menu'));
+        console.log('Polish detection - pathParts includes about:', pathParts.includes('about'));
         
-        if (currentFile === 'index.html' && !pathParts.includes('menu') && !pathParts.includes('about')) {
-            // We're at the root index.html
-            targetPath = 'en/index.html';
+        if (!pathParts.includes('menu') && !pathParts.includes('about')) {
+            // We're at the root (Polish home)
+            targetPath = 'en/';
+            console.log('Detected: Polish home');
         } else if (pathParts.includes('menu')) {
-            // We're at menu/index.html
-            targetPath = '../en/menu/index.html';
+            // We're at menu/
+            targetPath = '../en/menu/';
+            console.log('Detected: Polish menu');
         } else if (pathParts.includes('about')) {
-            // We're at about/index.html
-            targetPath = '../en/about/index.html';
+            // We're at about/
+            targetPath = '../en/about/';
+            console.log('Detected: Polish about');
         }
     }
     
