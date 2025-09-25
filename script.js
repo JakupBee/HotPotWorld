@@ -326,10 +326,31 @@ INGREDIENTS 原料;Sets 套;SKŁADNIKI 原料;ZESTAWY 套;SET FOR TWO ; ZESTAW D
 
 // CSV Menu Parser
 async function loadMenuData() {
+    // Determine the correct path to the CSV file based on current location
+    const currentPath = window.location.pathname;
+    let csvPath;
+    
+    if (currentPath.includes('/en/menu/') || currentPath.includes('/en/about/')) {
+        // We're in en/menu/ or en/about/ - need to go up 2 levels
+        csvPath = '../../MenuContent/HotPot_Menu.csv';
+    } else if (currentPath.includes('/menu/') || currentPath.includes('/about/')) {
+        // We're in menu/ or about/ - need to go up 1 level
+        csvPath = '../MenuContent/HotPot_Menu.csv';
+    } else if (currentPath.includes('/en/')) {
+        // We're in en/ - need to go up 1 level
+        csvPath = '../MenuContent/HotPot_Menu.csv';
+    } else {
+        // We're in root - direct path
+        csvPath = 'MenuContent/HotPot_Menu.csv';
+    }
+    
+    console.log('Current path:', currentPath);
+    console.log('CSV path:', csvPath);
+    
     // Always try to load the actual CSV file first
     try {
         console.log('Attempting to load live CSV file...');
-        const response = await fetch('MenuContent/HotPot_Menu.csv');
+        const response = await fetch(csvPath);
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -337,19 +358,37 @@ async function loadMenuData() {
         
         const csvText = await response.text();
         console.log('Live CSV loaded successfully!');
+        console.log('CSV content length:', csvText.length);
+        console.log('CSV content preview:', csvText.substring(0, 200));
         const parsedData = parseCSV(csvText);
         console.log('Parsed live data:', parsedData);
         return parsedData;
     } catch (error) {
         console.error('Failed to load live CSV:', error.message);
-        console.log('This might be due to CORS restrictions when opening files locally.');
-        console.log('To see live CSV updates, run a local server:');
-        console.log('1. Open terminal in project folder');
-        console.log('2. Run: python -m http.server 8000');
-        console.log('3. Visit: http://localhost:8000');
+        console.log('Attempting fallback paths...');
         
-        // Only use fallback if absolutely necessary
-        console.log('Using fallback data as last resort...');
+        // Try alternative paths as fallback
+        const fallbackPaths = [
+            'MenuContent/HotPot_Menu.csv',
+            '../MenuContent/HotPot_Menu.csv',
+            '../../MenuContent/HotPot_Menu.csv'
+        ];
+        
+        for (const fallbackPath of fallbackPaths) {
+            try {
+                console.log('Trying fallback path:', fallbackPath);
+                const response = await fetch(fallbackPath);
+                if (response.ok) {
+                    const csvText = await response.text();
+                    console.log('Fallback CSV loaded successfully from:', fallbackPath);
+                    return parseCSV(csvText);
+                }
+            } catch (fallbackError) {
+                console.log('Fallback path failed:', fallbackPath, fallbackError.message);
+            }
+        }
+        
+        console.log('All CSV loading attempts failed, using hardcoded data...');
         return parseCSV(FALLBACK_MENU_DATA);
     }
 }
