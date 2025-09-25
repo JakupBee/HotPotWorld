@@ -526,34 +526,64 @@ function switchLanguage() {
     const currentPath = window.location.pathname;
     const pathParts = currentPath.split('/').filter(part => part !== '');
     
+    // Debug logging
+    console.log('Current path:', currentPath);
+    console.log('Path parts:', pathParts);
+    
     // Determine if we're in the English folder
     const isCurrentlyEnglish = pathParts.includes('en');
-    const currentFile = pathParts[pathParts.length - 1] || 'index.html';
+    console.log('Is currently English:', isCurrentlyEnglish);
     
-    // Define language mapping
-    const languageMap = {
-        // Polish main files to English files
-        'index.html': 'en/index.html',
-        'menu.html': 'en/menu.html',
-        'about.html': 'en/about.html',
-        // English files to Polish main files (when in en/ folder)
-        'en/index.html': 'index.html',
-        'en/menu.html': 'menu.html',
-        'en/about.html': 'about.html'
-    };
-    
-    let targetFile;
+    let targetPath;
     
     if (isCurrentlyEnglish) {
-        // We're in the en/ folder, go to Polish version (up one directory)
-        targetFile = '../' + currentFile;
+        // We're in the en/ folder, go to Polish version
+        const currentFile = pathParts[pathParts.length - 1] || 'index.html';
+        console.log('English detection - currentFile:', currentFile);
+        console.log('English detection - pathParts includes en:', pathParts.includes('en'));
+        console.log('English detection - pathParts includes menu:', pathParts.includes('menu'));
+        console.log('English detection - pathParts includes about:', pathParts.includes('about'));
+        
+        if (currentFile === 'index.html' && pathParts.includes('en') && !pathParts.includes('menu') && !pathParts.includes('about')) {
+            // We're at en/index.html (English home)
+            targetPath = '../index.html';
+            console.log('Detected: English home');
+        } else if (pathParts.includes('en') && pathParts.includes('menu')) {
+            // We're at en/menu/index.html
+            targetPath = '../../menu/index.html';
+            console.log('Detected: English menu');
+        } else if (pathParts.includes('en') && pathParts.includes('about')) {
+            // We're at en/about/index.html
+            targetPath = '../../about/index.html';
+            console.log('Detected: English about');
+        }
     } else {
-        // We're in the root folder, go to English version
-        targetFile = 'en/' + currentFile;
+        // We're in the Polish folder, go to English version
+        // Check if we're at the root index.html or in a subfolder
+        const currentFile = pathParts[pathParts.length - 1] || 'index.html';
+        
+        if (currentFile === 'index.html' && !pathParts.includes('menu') && !pathParts.includes('about')) {
+            // We're at the root index.html
+            targetPath = 'en/index.html';
+        } else if (pathParts.includes('menu')) {
+            // We're at menu/index.html
+            targetPath = '../en/menu/index.html';
+        } else if (pathParts.includes('about')) {
+            // We're at about/index.html
+            targetPath = '../en/about/index.html';
+        }
     }
     
+    // Debug logging
+    console.log('Target path:', targetPath);
+    
     // Navigate to the equivalent page in the other language
-    window.location.href = targetFile;
+    if (targetPath) {
+        console.log('Navigating to:', targetPath);
+        window.location.href = targetPath;
+    } else {
+        console.log('No target path found - language switching failed');
+    }
 }
 
 // Add smart language switching to all language buttons
@@ -581,8 +611,22 @@ function loadCarouselImages() {
     if (!carouselSlides || !carouselDots) return;
     
     // Determine the correct path based on current location
-    const isInEnFolder = window.location.pathname.includes('/en/');
-    const carouselPath = isInEnFolder ? '../Carousel/' : 'Carousel/';
+    const currentPath = window.location.pathname;
+    let carouselPath;
+    
+    if (currentPath.includes('/en/menu/') || currentPath.includes('/en/about/')) {
+        // We're in en/menu/ or en/about/ - need to go up 2 levels
+        carouselPath = '../../Carousel/';
+    } else if (currentPath.includes('/menu/') || currentPath.includes('/about/')) {
+        // We're in menu/ or about/ - need to go up 1 level
+        carouselPath = '../Carousel/';
+    } else if (currentPath.includes('/en/')) {
+        // We're in en/ - need to go up 1 level
+        carouselPath = '../Carousel/';
+    } else {
+        // We're in root - direct path
+        carouselPath = 'Carousel/';
+    }
     
     // List of images in the Carousel folder
     const images = [
