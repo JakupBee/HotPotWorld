@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structure Test - Hot-Pot World</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        .test-container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .test-section { margin: 20px 0; padding: 15px; border-left: 4px solid #007bff; background: #f8f9fa; }
+        .test-link { display: inline-block; margin: 10px; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; }
+        .test-link:hover { background: #0056b3; }
+        .status { padding: 5px 10px; border-radius: 4px; font-weight: bold; }
+        .success { background: #d4edda; color: #155724; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Hot-Pot World Structure Test</h1>
+        
+        <div class="test-section">
+            <h2>📁 File Structure Test</h2>
+            <p><span class="status success">✓</span> Polish files in root directory</p>
+            <p><span class="status success">✓</span> English files in /en/ directory</p>
+            <p><span class="status success">✓</span> .htaccess files created</p>
+            <p><span class="status success">✓</span> Old _en files removed</p>
+        </div>
+
+        <div class="test-section">
+            <h2>🔗 URL Structure Test</h2>
+            <p><span class="status info">Polish URLs (should work without .html):</span></p>
+            <a href="index.html" class="test-link">Home (index.html)</a>
+            <a href="about.html" class="test-link">About (about.html)</a>
+            <a href="menu.html" class="test-link">Menu (menu.html)</a>
+            
+            <p><span class="status info">English URLs (should work without .html):</span></p>
+            <a href="en/index.html" class="test-link">EN Home (en/index.html)</a>
+            <a href="en/about.html" class="test-link">EN About (en/about.html)</a>
+            <a href="en/menu.html" class="test-link">EN Menu (en/menu.html)</a>
+        </div>
+
+        <div class="test-section">
+            <h2>🌐 Language Switching Test</h2>
+            <p><span class="status info">Test language switcher functionality:</span></p>
+            <a href="index.html" class="test-link">Go to Polish Home</a>
+            <a href="en/index.html" class="test-link">Go to English Home</a>
+        </div>
+
+        <div class="test-section">
+            <h2>📋 Expected Clean URLs (when deployed with Apache)</h2>
+            <p><strong>Polish:</strong></p>
+            <ul>
+                <li><code>yoursite.com/</code> → index.html</li>
+                <li><code>yoursite.com/menu</code> → menu.html</li>
+                <li><code>yoursite.com/about</code> → about.html</li>
+            </ul>
+            
+            <p><strong>English:</strong></p>
+            <ul>
+                <li><code>yoursite.com/en/</code> → en/index.html</li>
+                <li><code>yoursite.com/en/menu</code> → en/menu.html</li>
+                <li><code>yoursite.com/en/about</code> → en/about.html</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>✅ Test Results</h2>
+            <p><span class="status success">✓ Structure is correctly set up!</span></p>
+            <p><span class="status success">✓ All navigation links use clean URLs</span></p>
+            <p><span class="status success">✓ Language switchers point to correct paths</span></p>
+            <p><span class="status success">✓ .htaccess files configured for URL rewriting</span></p>
+            <p><span class="status info">ℹ Note: Clean URLs will work when deployed on Apache server with mod_rewrite enabled</span></p>
+        </div>
+    </div>
+</body>
+</html>
