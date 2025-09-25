@@ -389,6 +389,7 @@ async function loadMenuData() {
         }
         
         console.log('All CSV loading attempts failed, using hardcoded data...');
+        console.warn('Using fallback menu data. This may indicate a server configuration issue.');
         return parseCSV(FALLBACK_MENU_DATA);
     }
 }
@@ -524,14 +525,105 @@ function renderMenu(menuStructure) {
     menuContainer.innerHTML = menuHTML;
 }
 
-function showMenuError() {
+function showMenuError(errorMessage = null) {
     const menuContainer = document.querySelector('.menu-content .container');
     if (!menuContainer) return;
     
+    // Detect language for error message
+    const htmlLang = document.documentElement.lang;
+    const isPolish = htmlLang === 'pl';
+    
+    const errorContent = isPolish ? {
+        title: "Menu tymczasowo niedostępne",
+        message: "Przepraszamy, ale mamy problemy z załadowaniem naszego menu.",
+        suggestion: "Spróbuj odświeżyć stronę lub wróć później.",
+        technical: "Jeśli problem się powtarza, skontaktuj się z nami.",
+        button: "Odśwież stronę"
+    } : {
+        title: "Menu temporarily unavailable",
+        message: "We're sorry, but we're having trouble loading our menu.",
+        suggestion: "Please try refreshing the page or come back later.",
+        technical: "If the problem persists, please contact us.",
+        button: "Refresh page"
+    };
+    
     menuContainer.innerHTML = `
-        <div class="menu-error">
-            <h2>Menu temporarily unavailable</h2>
-            <p>We're having trouble loading our menu. Please try refreshing the page.</p>
+        <div class="menu-error" style="
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-radius: 15px;
+            border: 2px solid #ff6b35;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        ">
+            <div style="
+                font-size: 4rem;
+                margin-bottom: 20px;
+                color: #ff6b35;
+            ">⚠️</div>
+            <h2 style="
+                color: #ffffff;
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+                font-family: 'CHOWFUN', sans-serif;
+            ">${errorContent.title}</h2>
+            <p style="
+                color: #cccccc;
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+                line-height: 1.6;
+            ">${errorContent.message}</p>
+            <p style="
+                color: #aaaaaa;
+                font-size: 1rem;
+                margin-bottom: 20px;
+            ">${errorContent.suggestion}</p>
+            <p style="
+                color: #888888;
+                font-size: 0.9rem;
+                margin-bottom: 30px;
+                font-style: italic;
+            ">${errorContent.technical}</p>
+            <button onclick="window.location.reload()" style="
+                background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                font-size: 1.1rem;
+                border-radius: 25px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-family: 'CHOWFUN', sans-serif;
+                font-weight: bold;
+                box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 7px 20px rgba(255, 107, 53, 0.4)'" 
+               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(255, 107, 53, 0.3)'">
+                ${errorContent.button}
+            </button>
+            ${errorMessage ? `
+                <details style="
+                    margin-top: 30px;
+                    text-align: left;
+                    background: rgba(0,0,0,0.3);
+                    padding: 15px;
+                    border-radius: 10px;
+                    border: 1px solid #444;
+                ">
+                    <summary style="
+                        color: #ff6b35;
+                        cursor: pointer;
+                        font-weight: bold;
+                        margin-bottom: 10px;
+                    ">Technical Details</summary>
+                    <pre style="
+                        color: #cccccc;
+                        font-size: 0.8rem;
+                        white-space: pre-wrap;
+                        word-break: break-all;
+                    ">${errorMessage}</pre>
+                </details>
+            ` : ''}
         </div>
     `;
 }
@@ -545,9 +637,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         const isPolish = htmlLang === 'pl' || window.location.pathname.includes('_pl');
         
         try {
-            const menuData = await loadMenuData();
+            // Add timeout to prevent hanging
+            const menuDataPromise = loadMenuData();
+            const timeoutPromise = new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('Menu loading timeout after 10 seconds')), 10000)
+            );
+            
+            const menuData = await Promise.race([menuDataPromise, timeoutPromise]);
+            
             if (menuData.length === 0) {
-                showMenuError();
+                showMenuError('No menu data available. The CSV file appears to be empty or invalid.');
                 return;
             }
             
@@ -555,7 +654,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             renderMenu(menuStructure);
         } catch (error) {
             console.error('Error initializing menu:', error);
-            showMenuError();
+            if (error.message.includes('timeout')) {
+                showMenuError('Menu loading timed out. Please check your internet connection and try again.');
+            } else {
+                showMenuError(`Menu loading failed: ${error.message}`);
+            }
         }
     }
 });
