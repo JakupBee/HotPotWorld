@@ -344,16 +344,6 @@ SETS;N/A;ZESTAWY;N/A;SET FOR TWO;ZESTAW DLA DWOJGA;双人套餐;168ZŁ`;
 
 // CSV Menu Parser
 async function loadMenuData() {
-    // HARDCODED MENU MODE: Skip all CSV loading and use hardcoded data only
-    console.log('=== HARDCODED MENU MODE ENABLED ===');
-    console.log('Dynamic CSV loading is disabled');
-    console.log('Using hardcoded menu data only');
-    console.log('===================================');
-    
-    // Return hardcoded data immediately - no CSV loading attempts
-    return parseCSV(FALLBACK_MENU_DATA);
-    
-    /* DISABLED: All CSV loading code is commented out
     // Determine the correct path to the CSV file based on current location
     const currentPath = window.location.pathname;
     let csvPath;
@@ -429,7 +419,6 @@ async function loadMenuData() {
         console.warn('Using fallback menu data. This may indicate a server configuration issue.');
         return parseCSV(FALLBACK_MENU_DATA);
     }
-    */
 }
 
 function parseCSV(csvText) {
