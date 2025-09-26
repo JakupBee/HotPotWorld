@@ -565,18 +565,25 @@ function showMenuError(errorMessage = null) {
     const errorContent = isPolish ? {
         title: "Menu tymczasowo niedostępne",
         message: "Przepraszamy, ale mamy problemy z załadowaniem naszego menu.",
-        suggestion: "Spróbuj odświeżyć stronę lub wróć później.",
+        suggestion: "Spróbuj odświeżyć stronę, otworzyć menu w formacie PDF, lub wróć później.",
         technical: "Jeśli problem się powtarza, skontaktuj się z nami.",
         button: "Odśwież stronę"
     } : {
         title: "Menu temporarily unavailable",
         message: "We're sorry, but we're having trouble loading our menu.",
-        suggestion: "Please try refreshing the page or come back later.",
+        suggestion: "Please try refreshing the page, opening the menu in PDF format, or come back later.",
         technical: "If the problem persists, please contact us.",
         button: "Refresh page"
     };
     
+    // Get PDF button text based on language
+    const pdfButtonText = isPolish ? "Otwórz menu w formacie .pdf" : "Open the menu in .pdf format";
+    const pdfButtonPath = isPolish ? "../MenuContent/MenuPDF.pdf" : "../../MenuContent/MenuPDF.pdf";
+    
     menuContainer.innerHTML = `
+        <a href="${pdfButtonPath}" target="_blank" class="pdf-download-button" id="pdf-download-btn">
+            ${pdfButtonText}
+        </a>
         <div class="menu-error" style="
             text-align: center;
             padding: 60px 20px;
