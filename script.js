@@ -503,7 +503,17 @@ function renderMenu(menuStructure) {
     const menuContainer = document.querySelector('.menu-content .container');
     if (!menuContainer) return;
     
-    let menuHTML = '';
+    // Detect language for PDF button
+    const htmlLang = document.documentElement.lang;
+    const isPolish = htmlLang === 'pl';
+    const pdfButtonText = isPolish ? "Otwórz menu w formacie .pdf" : "Open the menu in .pdf format";
+    const pdfButtonPath = isPolish ? "../MenuContent/MenuPDF.pdf" : "../../MenuContent/MenuPDF.pdf";
+    
+    let menuHTML = `
+        <a href="${pdfButtonPath}" target="_blank" class="pdf-download-button" id="pdf-download-btn">
+            ${pdfButtonText}
+        </a>
+    `;
     
     Object.values(menuStructure).forEach(section => {
         const sectionId = section.name.toLowerCase().replace(/\s+/g, '-');
@@ -565,7 +575,7 @@ function showMenuError(errorMessage = null) {
     const errorContent = isPolish ? {
         title: "Menu tymczasowo niedostępne",
         message: "Przepraszamy, ale mamy problemy z załadowaniem naszego menu.",
-        suggestion: "Spróbuj odświeżyć stronę, otworzyć menu w formacie PDF, lub wróć później.",
+        suggestion: "Spróbuj odświeżyć stronę, otworzyć menu w formacie PDF lub wróć później.",
         technical: "Jeśli problem się powtarza, skontaktuj się z nami.",
         button: "Odśwież stronę"
     } : {
