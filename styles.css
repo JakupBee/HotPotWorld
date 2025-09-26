@@ -39,9 +39,6 @@
 
 html {
     background-color: #1a1a1a;
-    /* Optimize scrolling performance on macOS */
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
 }
 
 body {
@@ -52,10 +49,6 @@ body {
     min-height: 100vh;
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
-    /* Optimize for smooth scrolling on macOS */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
 }
 
 body.loaded {
@@ -80,11 +73,6 @@ body.loaded {
     border-bottom: 3px solid;
     border-image: var(--gold-gradient) 1;
     transition: all 0.4s ease;
-    /* Optimize for smooth scrolling on macOS */
-    will-change: auto;
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
 }
 
 .nav-container {
@@ -698,48 +686,6 @@ body.loaded {
     animation: pageTransition 0.8s ease-in-out;
 }
 
-/* macOS Performance Optimizations */
-@media screen and (-webkit-min-device-pixel-ratio: 1) {
-    /* Reduce animations on macOS for better scrolling performance */
-    .navbar {
-        animation: none;
-        background: #991b1b;
-    }
-    
-    .menu-content, .about-content {
-        /* Use a different approach for fixed backgrounds on macOS */
-        background-attachment: scroll;
-        background-size: 100% 100%;
-        background-position: center top;
-        /* Create a pseudo-element for the fixed background effect */
-        position: relative;
-    }
-    
-    .menu-content::after, .about-content::after {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: linear-gradient(135deg, rgba(31, 31, 31, 0.7), rgba(45, 27, 27, 0.7)), 
-                         url('Images/background.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        z-index: -1;
-        pointer-events: none;
-    }
-    
-    /* Optimize hover effects for better performance */
-    .feature-card:hover,
-    .value-card:hover,
-    .team-member:hover {
-        transform: none;
-        transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    }
-}
-
 /* Responsive Design */
 @media (max-width: 1024px) {
     /* Medium screens - slightly smaller navbar */
@@ -1010,11 +956,6 @@ body.loaded {
     background-attachment: fixed;
     position: relative;
     overflow: hidden;
-    /* Optimize for smooth scrolling on macOS while keeping fixed background */
-    will-change: auto;
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
 }
 
 .menu-content::before, .about-content::before {
