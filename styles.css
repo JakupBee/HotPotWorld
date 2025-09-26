@@ -686,6 +686,135 @@ body.loaded {
     animation: pageTransition 0.8s ease-in-out;
 }
 
+/* Menu Navigation Styling */
+.menu-navigation {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(252, 235, 159, 0.2);
+}
+
+.nav-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-section-button {
+    background: linear-gradient(135deg, rgba(252, 235, 159, 0.1), rgba(244, 208, 63, 0.1));
+    border: 1px solid rgba(252, 235, 159, 0.3);
+    color: #fceb9f;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+    backdrop-filter: blur(5px);
+}
+
+.nav-section-button:hover {
+    background: linear-gradient(135deg, rgba(252, 235, 159, 0.2), rgba(244, 208, 63, 0.2));
+    border-color: rgba(252, 235, 159, 0.5);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(252, 235, 159, 0.2);
+}
+
+.nav-subsection-button {
+    background: linear-gradient(135deg, rgba(254, 92, 86, 0.1), rgba(220, 38, 38, 0.1));
+    border: 1px solid rgba(254, 92, 86, 0.3);
+    color: #fe5c56;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+    backdrop-filter: blur(5px);
+}
+
+.nav-subsection-button:hover {
+    background: linear-gradient(135deg, rgba(254, 92, 86, 0.2), rgba(220, 38, 38, 0.2));
+    border-color: rgba(254, 92, 86, 0.5);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(254, 92, 86, 0.2);
+}
+
+.nav-subsection-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+/* Responsive navigation */
+@media (max-width: 768px) {
+    .nav-buttons-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .nav-subsection-columns {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+    
+    .nav-section-button {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+    
+    .nav-subsection-button {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+}
+
+/* Instagram Link Styling */
+.instagram-link {
+    color: #fceb9f;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s ease;
+    background: linear-gradient(45deg, #fceb9f, #f4d03f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 8px rgba(252, 235, 159, 0.3);
+}
+
+.instagram-link:hover {
+    color: #fff;
+    text-shadow: 0 0 12px rgba(252, 235, 159, 0.6);
+    transform: translateY(-1px);
+    -webkit-text-fill-color: #fff;
+}
+
+.instagram-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: linear-gradient(90deg, #fceb9f, #f4d03f);
+    transition: width 0.3s ease;
+}
+
+.instagram-link:hover::after {
+    width: 100%;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     /* Medium screens - slightly smaller navbar */

@@ -506,15 +506,17 @@ function renderMenu(menuStructure) {
     let menuHTML = '';
     
     Object.values(menuStructure).forEach(section => {
+        const sectionId = section.name.toLowerCase().replace(/\s+/g, '-');
         menuHTML += `
-            <div class="menu-section main-section">
+            <div class="menu-section main-section" id="${sectionId}">
                 <h2>${section.name}</h2>
         `;
         
         Object.values(section.subSections).forEach(subSection => {
             if (subSection.name) {
+                const subSectionId = subSection.name.toLowerCase().replace(/\s+/g, '-');
                 menuHTML += `
-                    <div class="sub-section">
+                    <div class="sub-section" id="${subSectionId}">
                         <h3>${subSection.name}</h3>
                         <div class="menu-grid three-columns">
                 `;
@@ -938,7 +940,97 @@ function initializeCarousel() {
     }
 }
 
+// Menu Navigation Functions
+function generateMenuNavigation(menuData) {
+    const navContainer = document.getElementById('menu-nav-buttons');
+    if (!navContainer || !menuData || menuData.length === 0) return;
+    
+    // Group items by section and subsection
+    const sections = {};
+    const currentPath = window.location.pathname;
+    const isEnglish = currentPath.includes('/en/');
+    
+    menuData.forEach(item => {
+        const section = isEnglish ? (item.Section_EN || 'Other') : (item.Section_PL || 'Other');
+        const subsection = isEnglish ? (item.SubSection_EN || 'General') : (item.SubSection_PL || 'General');
+        
+        if (section && section !== 'N/A' && section.trim()) {
+            if (!sections[section]) {
+                sections[section] = new Set();
+            }
+            if (subsection && subsection !== 'N/A' && subsection.trim()) {
+                sections[section].add(subsection);
+            }
+        }
+    });
+    
+    // Create navigation HTML
+    let navHTML = '';
+    
+    // Add section buttons
+    Object.keys(sections).forEach(section => {
+        const sectionId = section.toLowerCase().replace(/\s+/g, '-');
+        navHTML += `<button class="nav-section-button" onclick="scrollToSection('${sectionId}')">${section}</button>`;
+    });
+    
+    // Add subsection buttons in two columns
+    navHTML += '<div class="nav-subsection-columns">';
+    const subsections = [...new Set(Object.values(sections).flatMap(s => [...s]))];
+    const midPoint = Math.ceil(subsections.length / 2);
+    
+    // First column
+    navHTML += '<div>';
+    for (let i = 0; i < midPoint; i++) {
+        const subsection = subsections[i];
+        const subsectionId = subsection.toLowerCase().replace(/\s+/g, '-');
+        navHTML += `<button class="nav-subsection-button" onclick="scrollToSubsection('${subsectionId}')">${subsection}</button>`;
+    }
+    navHTML += '</div>';
+    
+    // Second column
+    navHTML += '<div>';
+    for (let i = midPoint; i < subsections.length; i++) {
+        const subsection = subsections[i];
+        const subsectionId = subsection.toLowerCase().replace(/\s+/g, '-');
+        navHTML += `<button class="nav-subsection-button" onclick="scrollToSubsection('${subsectionId}')">${subsection}</button>`;
+    }
+    navHTML += '</div></div>';
+    
+    navContainer.innerHTML = navHTML;
+}
+
+function scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+function scrollToSubsection(subsectionId) {
+    const element = document.getElementById(subsectionId);
+    if (element) {
+        element.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
 // Load carousel when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     loadCarouselImages();
+    
+    // Generate menu navigation if on menu page
+    if (window.location.pathname.includes('/menu/')) {
+        loadMenuData().then(menuData => {
+            if (menuData && menuData.length > 0) {
+                generateMenuNavigation(menuData);
+            }
+        }).catch(error => {
+            console.log('Menu navigation not generated due to CSV loading error:', error);
+        });
+    }
 });
