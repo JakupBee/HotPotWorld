@@ -967,34 +967,22 @@ function generateMenuNavigation(menuData) {
     // Create navigation HTML
     let navHTML = '';
     
-    // Add section buttons
+    // Add sections with their subsections grouped underneath
     Object.keys(sections).forEach(section => {
         const sectionId = section.toLowerCase().replace(/\s+/g, '-');
         navHTML += `<button class="nav-section-button" onclick="scrollToSection('${sectionId}')">${section}</button>`;
+        
+        // Add subsections for this section
+        const subsections = [...sections[section]];
+        if (subsections.length > 0) {
+            navHTML += '<div class="nav-subsection-group">';
+            subsections.forEach(subsection => {
+                const subsectionId = subsection.toLowerCase().replace(/\s+/g, '-');
+                navHTML += `<button class="nav-subsection-button" onclick="scrollToSubsection('${subsectionId}')">${subsection}</button>`;
+            });
+            navHTML += '</div>';
+        }
     });
-    
-    // Add subsection buttons in two columns
-    navHTML += '<div class="nav-subsection-columns">';
-    const subsections = [...new Set(Object.values(sections).flatMap(s => [...s]))];
-    const midPoint = Math.ceil(subsections.length / 2);
-    
-    // First column
-    navHTML += '<div>';
-    for (let i = 0; i < midPoint; i++) {
-        const subsection = subsections[i];
-        const subsectionId = subsection.toLowerCase().replace(/\s+/g, '-');
-        navHTML += `<button class="nav-subsection-button" onclick="scrollToSubsection('${subsectionId}')">${subsection}</button>`;
-    }
-    navHTML += '</div>';
-    
-    // Second column
-    navHTML += '<div>';
-    for (let i = midPoint; i < subsections.length; i++) {
-        const subsection = subsections[i];
-        const subsectionId = subsection.toLowerCase().replace(/\s+/g, '-');
-        navHTML += `<button class="nav-subsection-button" onclick="scrollToSubsection('${subsectionId}')">${subsection}</button>`;
-    }
-    navHTML += '</div></div>';
     
     navContainer.innerHTML = navHTML;
 }

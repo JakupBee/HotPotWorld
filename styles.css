@@ -688,9 +688,40 @@ body.loaded {
 
 /* Menu Navigation Styling */
 .menu-navigation {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(252, 235, 159, 0.2);
+    background: #1a3d2a;
+    padding: 40px 0;
+    position: relative;
+    margin-top: -50px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.menu-navigation::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(252, 235, 159, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(252, 235, 159, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.05) 0%, transparent 30%),
+        linear-gradient(45deg, rgba(252, 235, 159, 0.04) 0%, transparent 50%, rgba(252, 235, 159, 0.04) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.menu-navigation::after {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: #1a3d2a;
+    border-radius: 0 0 50% 50%;
+    z-index: -1;
 }
 
 .nav-buttons-container {
@@ -699,61 +730,68 @@ body.loaded {
     gap: 10px;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 10;
 }
 
 .nav-section-button {
-    background: linear-gradient(135deg, rgba(252, 235, 159, 0.1), rgba(244, 208, 63, 0.1));
-    border: 1px solid rgba(252, 235, 159, 0.3);
-    color: #fceb9f;
+    background: linear-gradient(45deg, #f4d03f, #fceb9f);
+    color: #1a1a1a;
+    border: 2px solid #f4d03f;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(244, 208, 63, 0.3);
+    margin: 5px;
+}
+
+.nav-section-button:hover {
+    background: linear-gradient(45deg, #fceb9f, #f4d03f);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(244, 208, 63, 0.4);
+    color: #1a1a1a;
+}
+
+.nav-subsection-button {
+    background: linear-gradient(45deg, #fe5c56, #dc2626);
+    color: #fff;
+    border: 2px solid #fe5c56;
     padding: 8px 16px;
     border-radius: 20px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
     display: inline-block;
     white-space: nowrap;
-    backdrop-filter: blur(5px);
-}
-
-.nav-section-button:hover {
-    background: linear-gradient(135deg, rgba(252, 235, 159, 0.2), rgba(244, 208, 63, 0.2));
-    border-color: rgba(252, 235, 159, 0.5);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(252, 235, 159, 0.2);
-}
-
-.nav-subsection-button {
-    background: linear-gradient(135deg, rgba(254, 92, 86, 0.1), rgba(220, 38, 38, 0.1));
-    border: 1px solid rgba(254, 92, 86, 0.3);
-    color: #fe5c56;
-    padding: 6px 12px;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    font-weight: 400;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    white-space: nowrap;
-    backdrop-filter: blur(5px);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 3px 10px rgba(254, 92, 86, 0.3);
+    margin: 3px;
 }
 
 .nav-subsection-button:hover {
-    background: linear-gradient(135deg, rgba(254, 92, 86, 0.2), rgba(220, 38, 38, 0.2));
-    border-color: rgba(254, 92, 86, 0.5);
+    background: linear-gradient(45deg, #dc2626, #fe5c56);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(254, 92, 86, 0.4);
     color: #fff;
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(254, 92, 86, 0.2);
 }
 
-.nav-subsection-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 10px;
+.nav-subsection-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 10px 0 20px 0;
+    justify-content: center;
 }
 
 /* Responsive navigation */
@@ -763,19 +801,19 @@ body.loaded {
         gap: 8px;
     }
     
-    .nav-subsection-columns {
-        grid-template-columns: 1fr;
-        gap: 6px;
+    .nav-subsection-group {
+        flex-direction: column;
+        align-items: center;
     }
     
     .nav-section-button {
-        font-size: 0.85rem;
-        padding: 6px 12px;
+        font-size: 0.9rem;
+        padding: 10px 20px;
     }
     
     .nav-subsection-button {
-        font-size: 0.75rem;
-        padding: 5px 10px;
+        font-size: 0.8rem;
+        padding: 6px 12px;
     }
 }
 
