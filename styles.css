@@ -758,13 +758,15 @@ body.loaded {
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
-    display: inline-block;
+    display: block;
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 4px 15px rgba(254, 92, 86, 0.3);
-    margin-bottom: 20px;
+    margin: 0 auto 20px auto;
     text-align: center;
     min-width: 300px;
+    position: relative;
+    z-index: 20;
 }
 
 .pdf-download-button:hover {
@@ -792,7 +794,7 @@ body.loaded {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 .nav-section-button {
