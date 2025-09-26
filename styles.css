@@ -855,7 +855,7 @@ body.loaded {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 /* Mobile optimizations for fixed background */
