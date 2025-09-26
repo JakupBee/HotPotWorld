@@ -800,7 +800,7 @@ body.loaded {
     border: 2px solid #fe5c56;
     padding: 8px 16px;
     border-radius: 20px;
-    font-family: 'Roboto', 'Arial', sans-serif;
+    font-family: 'Chowfun', serif;
     font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
@@ -826,6 +826,36 @@ body.loaded {
     flex-wrap: wrap;
     gap: 5px;
     justify-content: flex-end;
+}
+
+/* Mobile optimizations for fixed background */
+@media (max-width: 768px) {
+    .menu-content, .about-content {
+        /* Use a pseudo-element approach for mobile to prevent stuttering */
+        background-attachment: scroll;
+        position: relative;
+    }
+    
+    .menu-content::after, .about-content::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(135deg, rgba(31, 31, 31, 0.7), rgba(45, 27, 27, 0.7)), 
+                         url('Images/background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -2;
+        pointer-events: none;
+        /* Optimize for mobile performance */
+        will-change: auto;
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
 }
 
 /* Responsive navigation */
@@ -1096,15 +1126,15 @@ body.loaded {
         background-attachment: scroll;
     }
     
+    /* Keep fixed background for menu and about pages on mobile for consistency */
     .menu-content, .about-content {
-        background-attachment: scroll;
         background-size: cover;
     }
 }
 
 /* Menu Page Styles */
 .menu-hero {
-    background: linear-gradient(135deg, #fe5c56, #dc2626, #b91c1c, #991b1b);
+    background: linear-gradient(135deg, #7f1d1d, #5d2a2a, #450a0a);
     color: white;
     padding: 80px 0;
     text-align: center;
