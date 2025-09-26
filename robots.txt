@@ -15,3 +15,4 @@ Disallow: /*.txt
 # Allow important directories
 Allow: /Images/
 Allow: /Carousel/
+
