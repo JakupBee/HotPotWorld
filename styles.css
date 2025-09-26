@@ -707,8 +707,28 @@ body.loaded {
     }
     
     .menu-content, .about-content {
-        /* Disable will-change during scroll to prevent stuttering */
-        will-change: auto;
+        /* Use a different approach for fixed backgrounds on macOS */
+        background-attachment: scroll;
+        background-size: 100% 100%;
+        background-position: center top;
+        /* Create a pseudo-element for the fixed background effect */
+        position: relative;
+    }
+    
+    .menu-content::after, .about-content::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(135deg, rgba(31, 31, 31, 0.7), rgba(45, 27, 27, 0.7)), 
+                         url('Images/background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -1;
+        pointer-events: none;
     }
     
     /* Optimize hover effects for better performance */
@@ -987,10 +1007,11 @@ body.loaded {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     position: relative;
     overflow: hidden;
-    /* Optimize for smooth scrolling on macOS */
-    will-change: transform;
+    /* Optimize for smooth scrolling on macOS while keeping fixed background */
+    will-change: auto;
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
