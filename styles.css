@@ -688,8 +688,8 @@ body.loaded {
 
 /* Menu Navigation Styling */
 .menu-navigation {
-    background: linear-gradient(135deg, #7f1d1d, #5d2a2a, #450a0a);
-    padding: 40px 0;
+    background: transparent;
+    padding: 0;
     position: relative;
     margin-top: -50px;
     z-index: 1;
@@ -738,7 +738,7 @@ body.loaded {
 }
 
 .nav-buttons-container {
-    display: flex;
+    display: none; /* Hidden for now, keeping code for future */
     flex-direction: column;
     gap: 20px;
     align-items: center;
@@ -762,7 +762,7 @@ body.loaded {
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 4px 15px rgba(254, 92, 86, 0.3);
-    margin: 0 auto 20px auto;
+    margin: 40px auto 20px auto;
     text-align: center;
     min-width: 300px;
     position: relative;
