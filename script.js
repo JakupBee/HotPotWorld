@@ -967,21 +967,31 @@ function generateMenuNavigation(menuData) {
     // Create navigation HTML
     let navHTML = '';
     
-    // Add sections with their subsections grouped underneath
+    // Add sections with their subsections in left-right layout
     Object.keys(sections).forEach(section => {
         const sectionId = section.toLowerCase().replace(/\s+/g, '-');
-        navHTML += `<button class="nav-section-button" onclick="scrollToSection('${sectionId}')">${section}</button>`;
-        
-        // Add subsections for this section
         const subsections = [...sections[section]];
+        
+        navHTML += '<div class="nav-section-row">';
+        
+        // Section button on the left
+        navHTML += `<div class="nav-section-left">`;
+        navHTML += `<button class="nav-section-button" onclick="scrollToSection('${sectionId}')">${section}</button>`;
+        navHTML += '</div>';
+        
+        // Subsections on the right
         if (subsections.length > 0) {
+            navHTML += '<div class="nav-section-right">';
             navHTML += '<div class="nav-subsection-group">';
             subsections.forEach(subsection => {
                 const subsectionId = subsection.toLowerCase().replace(/\s+/g, '-');
                 navHTML += `<button class="nav-subsection-button" onclick="scrollToSubsection('${subsectionId}')">${subsection}</button>`;
             });
             navHTML += '</div>';
+            navHTML += '</div>';
         }
+        
+        navHTML += '</div>';
     });
     
     navContainer.innerHTML = navHTML;

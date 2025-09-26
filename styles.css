@@ -696,6 +696,19 @@ body.loaded {
     overflow: hidden;
 }
 
+.menu-navigation .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('Images/CardBackground.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+    z-index: 0;
+}
+
 .menu-navigation::before {
     content: '';
     position: absolute;
@@ -726,20 +739,41 @@ body.loaded {
 
 .nav-buttons-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
     align-items: center;
     position: relative;
     z-index: 10;
 }
 
+.nav-section-row {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    max-width: 800px;
+    justify-content: space-between;
+}
+
+.nav-section-left {
+    flex: 0 0 auto;
+}
+
+.nav-section-right {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
 .nav-section-button {
-    background: linear-gradient(45deg, #f4d03f, #fceb9f);
+    background: var(--gold-gradient);
     color: #1a1a1a;
-    border: 2px solid #f4d03f;
+    border: 2px solid var(--dark-gold);
     padding: 12px 24px;
     border-radius: 25px;
+    font-family: 'Chowfun', serif;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -749,12 +783,12 @@ body.loaded {
     white-space: nowrap;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(244, 208, 63, 0.3);
+    box-shadow: var(--gold-shadow);
     margin: 5px;
 }
 
 .nav-section-button:hover {
-    background: linear-gradient(45deg, #fceb9f, #f4d03f);
+    background: linear-gradient(135deg, #fceb9f, #f8e68c, #fceb9f, #f4d03f);
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(244, 208, 63, 0.4);
     color: #1a1a1a;
@@ -766,6 +800,7 @@ body.loaded {
     border: 2px solid #fe5c56;
     padding: 8px 16px;
     border-radius: 20px;
+    font-family: 'Roboto', 'Arial', sans-serif;
     font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
@@ -790,20 +825,23 @@ body.loaded {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    margin: 10px 0 20px 0;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 /* Responsive navigation */
 @media (max-width: 768px) {
-    .nav-buttons-container {
+    .nav-section-row {
         flex-direction: column;
-        gap: 8px;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .nav-section-right {
+        justify-content: center;
     }
     
     .nav-subsection-group {
-        flex-direction: column;
-        align-items: center;
+        justify-content: center;
     }
     
     .nav-section-button {
@@ -1091,7 +1129,24 @@ body.loaded {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.4) 100%);
+    background: linear-gradient(to bottom, 
+        rgba(0, 0, 0, 0.3) 0%, 
+        rgba(0, 0, 0, 0.1) 30%, 
+        rgba(0, 0, 0, 0.1) 70%, 
+        rgba(0, 0, 0, 0.4) 100%);
+    z-index: 1;
+}
+
+.menu-hero::after, .about-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(ellipse at center top, rgba(0, 0, 0, 0.2) 0%, transparent 60%),
+        radial-gradient(ellipse at center bottom, rgba(0, 0, 0, 0.3) 0%, transparent 60%);
     z-index: 1;
 }
 
@@ -1100,9 +1155,10 @@ body.loaded {
     font-size: 3rem;
     font-weight: bold;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 0, 0, 0.4);
     position: relative;
     z-index: 2;
+    color: #fff;
 }
 
 .menu-hero p, .about-hero p {
@@ -1110,6 +1166,8 @@ body.loaded {
     opacity: 0.95;
     position: relative;
     z-index: 2;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    color: #fff;
 }
 
 .menu-content, .about-content {
@@ -1141,9 +1199,6 @@ body.loaded {
     z-index: 2;
 }
 
-.menu-hero::after, .about-hero::after {
-    display: none;
-}
 
 .menu-content, .about-content {
     margin-top: 0;
