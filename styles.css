@@ -893,7 +893,8 @@ body.loaded {
 @supports (-webkit-touch-callout: none) {
     /* iOS Safari specific fixes */
     @media (max-width: 768px) {
-        body::before {
+        /* Scope fixed background to content sections only to avoid tinting hero/footer */
+        .menu-content::after, .about-content::after {
             content: '';
             position: fixed;
             top: 0;
@@ -902,7 +903,7 @@ body.loaded {
             height: 100%;
             background: linear-gradient(135deg, rgba(31, 31, 31, 0.7), rgba(45, 27, 27, 0.7)),
                         url('Images/background.png') center/cover no-repeat;
-            z-index: -1;
+            z-index: -2;
             pointer-events: none;
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
