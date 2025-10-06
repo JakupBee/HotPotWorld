@@ -862,6 +862,7 @@ body.loaded {
 /* Mobile optimizations for fixed background */
 @media (max-width: 768px) {
     .menu-content, .about-content {
+		background: none;
         /* Use a pseudo-element approach for mobile to prevent stuttering */
         background-attachment: scroll;
         position: relative;
